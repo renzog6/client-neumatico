@@ -14,7 +14,7 @@ import { neumaticoService } from "../../services/neumatico.service";
 
 export default function Update({ neumatico }) {
   const router = useRouter();
-  if (neumatico === null) router.push("./stock");
+  if (neumatico === null) router.push("/neumatico");
 
   const [marcas, setMarcas] = useState([]);
 
@@ -76,21 +76,6 @@ export default function Update({ neumatico }) {
       );
     }
   };
-
-  /*   const handleResponse = async ({ response }) => {
-    if (response.status === 400) {
-      toast.error(
-        "An unexpected error occurred while saving, please try again"
-      );
-    } else if (response.ok) {
-      toast.success("Actualizado con Exito!!!");
-      router.push("./stock");
-    } else {
-      toast.error(
-        "An unexpected error occurred while saving, please try again"
-      );
-    }
-  }; */
 
   return (
     <div className={styles.container}>

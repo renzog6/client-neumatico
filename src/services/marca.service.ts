@@ -1,20 +1,18 @@
 
 //const { publicRuntimeConfig } = getConfig();
 //const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
-const baseUrl = "http://192.168.88.91:8091/neumaticos/";
+const baseUrl = "http://192.168.88.91:8091/marcas/";
 
-export const neumaticoService = {
+export const marcaservice = {
     getAll,
     getById,
     create,
     update,
     delete: _delete,
-    updateStock
 };
 
 const requestOptions = {
     method: "X",
-    //headers: authHeader(url),
     headers: {
         accept: 'application/json',
     },
@@ -47,7 +45,6 @@ async function getById(id) {
         }
 
         const result = await response.json();
-
         return result;
     } catch (err) {
         console.log(err);
@@ -73,23 +70,6 @@ function update(id, data) {
         body: JSON.stringify(data),
     };
     return fetch(`${baseUrl}${id}`, requestOptions).then(handleResponse);
-}
-
-async function updateStock(id, quantity) {
-    try {
-        requestOptions.method = "PUT";
-        const response = await fetch(`${baseUrl}${id}/stock?quantity=${quantity}`, requestOptions);
-
-        if (!response.ok) {
-            throw new Error(`Error! status: ${response.status}`);
-        }
-        const result = await response.json();
-        console.log(JSON.stringify(result))
-        return result;
-    } catch (err) {
-        console.log(err);
-        return null;
-    }
 }
 
 // prefixed with underscored because delete is a reserved word in javascript

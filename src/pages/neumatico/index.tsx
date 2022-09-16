@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "../../styles/Home.module.css";
 import ListAllNeumaticos from "../../components/neumatico/ListAll";
 
-export default function AddNeumatico() {
+export default function HomeNeumatico() {
   return (
     <div className={styles.container}>
       <Head>
