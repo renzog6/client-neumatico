@@ -9,14 +9,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { neumaticoService } from "../../services/neumatico.service";
-import { Neumatico } from "../../interfaces/Neumatico";
-import { clearScreenDown } from "readline";
-import { json } from "stream/consumers";
+import { movimientoService } from "../../services/movimiento.service";
 
 export default function UpdateStock({ neumatico }) {
   const router = useRouter();
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [fecha, setFecha] = useState(new Date());
   const [quantity, setQuantity] = useState(0);
   const [info, setInfo] = useState("");
 
@@ -28,19 +26,20 @@ export default function UpdateStock({ neumatico }) {
     setInfo(e.target.value);
   };
 
-  async function updateSotck(x) {
+  async function updateSotck(tipo) {
     if (quantity <= 0) {
       toast.error("Cantidad debe ser Mayor a 0");
-    } else if (quantity * x < 0) {
+    } else if (neumatico.stock + quantity * tipo < 0) {
       toast.error("El stock no puede ser NEGATIVO");
     } else {
       const response = await neumaticoService.updateStock(
         +neumatico.id,
-        quantity * x
+        quantity * tipo
       );
       if (response === null) {
         toast.error("An 400 error occurred while saving, please try again");
       } else {
+        movimientoService.createBuild(response, tipo, fecha, quantity, info);
         toast.success("El Nuevo Stock es: " + response.stock);
         router.push("/neumatico");
       }
@@ -60,8 +59,8 @@ export default function UpdateStock({ neumatico }) {
             Fecha
             <DatePicker
               dateFormat="dd/MM/yyyy"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              selected={fecha}
+              onChange={(date) => setFecha(date)}
             />
           </label>
           <label htmlFor="Quantity">

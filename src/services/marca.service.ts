@@ -1,9 +1,11 @@
 
-//const { publicRuntimeConfig } = getConfig();
-//const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
-const baseUrl = "http://192.168.88.91:8091/marcas/";
+import getConfig from "next/config";
 
-export const marcaservice = {
+const { publicRuntimeConfig } = getConfig();
+const baseUrl = `${publicRuntimeConfig.apiUrl}/marcas`;
+//const baseUrl = "http://192.168.88.91:8091/marcas/";
+
+export const marcaService = {
     getAll,
     getById,
     create,
@@ -38,7 +40,7 @@ async function getAll() {
 async function getById(id) {
     try {
         requestOptions.method = "GET";
-        const response = await fetch(`${baseUrl}${id}`, requestOptions);
+        const response = await fetch(`${baseUrl}/${id}`, requestOptions);
 
         if (!response.ok) {
             throw new Error(`Error! status: ${response.status}`);
@@ -69,7 +71,7 @@ function update(id, data) {
         //credentials: "include",
         body: JSON.stringify(data),
     };
-    return fetch(`${baseUrl}${id}`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse);
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
@@ -78,16 +80,11 @@ function _delete(id) {
         method: "DELETE",
         //headers: authHeader(url),
     };
-    return fetch(`${baseUrl}${id}`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
-    console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + response.statusText);
     if (!response.ok) {
-        if ([401, 403].includes(response.status)) {
-            console.log("Data::: ERRORRRRR");
-        }
-
         const error = response.statusText;
         console.log("Data::: " + response.status);
         return Promise.reject(error);
