@@ -27,6 +27,11 @@ export default function Header() {
               <a>Movimientos</a>
             </Link>
           </li>
+          <li>
+            <Link href="/neumatico/seguimiento">
+              <a>Seguimiento</a>
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>

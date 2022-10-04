@@ -16,7 +16,10 @@ const requestOptions = {
     method: "X",
     //headers: authHeader(url),
     headers: {
-        accept: 'application/json',
+        //origin: '*',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
     },
 };
 

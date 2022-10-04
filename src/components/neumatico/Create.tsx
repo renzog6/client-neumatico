@@ -3,8 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "../../styles/From.module.css";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 

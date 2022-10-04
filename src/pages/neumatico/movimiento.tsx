@@ -1,7 +1,6 @@
-import React from "react";
-import Head from "next/head";
-import styles from "../../styles/Home.module.css";
-import ListAllMovimientos from "../../components/neumatico/ListAllMovimientos";
+import Head from 'next/head'
+import styles from 'styles/Home.module.css'
+import ListAllMovimientos from 'components/neumatico/ListAllMovimientos'
 
 export default function Movimiento() {
   return (
@@ -11,5 +10,5 @@ export default function Movimiento() {
       </Head>
       <ListAllMovimientos />
     </div>
-  );
+  )
 }

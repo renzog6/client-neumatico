@@ -1,6 +1,6 @@
-import Head from "next/head";
-import Create from "../../components/neumatico/Create";
-import { marcaService } from "../../services/marca.service";
+import Head from 'next/head'
+import Create from 'components/neumatico/Create'
+import { marcaService } from 'services/marca.service'
 
 export default function CreateNeumatico({ marcas }) {
   return (
@@ -10,14 +10,14 @@ export default function CreateNeumatico({ marcas }) {
       </Head>
       <Create marcas={marcas} />;
     </>
-  );
+  )
 }
 
 export async function getServerSideProps() {
-  const marcas = await marcaService.getAll();
+  const marcas = await marcaService.getAll()
   return {
     props: {
       marcas,
     },
-  };
+  }
 }

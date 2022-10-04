@@ -1,25 +1,17 @@
 {
   "author": "Renzo O. Gorosito <renzog6@gmail.com>",
   "license": "De Todos",
-  "baseUrl": "./src",  
-  "paths": {
-    "@components/*": [
-      "./src/components/*"
-    ],
-    "@services/*": [
-      "/services/*"
-    ],
-    "@styles/*": [
-      "./src/styles/*"
-    ]
-  },
+
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "interfaces/*": ["src/interfaces/*"],
+      "services/*": ["src/services/*"],
+      "styles/*": ["src/styles/*"]
+    },
     "target": "ES6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -33,12 +25,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-, "src/services/movimiento.servicets"  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
