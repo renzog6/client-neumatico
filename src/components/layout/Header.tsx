@@ -1,39 +1,41 @@
-import React from "react";
-import Link from "next/link";
-import styles from "../../styles/Home.module.css";
+import React from 'react'
+import NextLink from 'next/link'
+import { Box, Flex, Heading, Link, Spacer, Stack } from '@chakra-ui/react'
 
 export default function Header() {
   return (
-    <div className={styles.container}>
-      <nav>
-        <ul>
-          <li>
-            <strong>Neumaticos</strong>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link href="/neumatico">
-              <a>Home</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/neumatico/create">
-              <a>Agregar</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/neumatico/movimiento">
-              <a>Movimientos</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/neumatico/seguimiento">
-              <a>Seguimiento</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+    <>
+      <Flex>
+        <Box p="4">
+          <Heading as="h3" size="md">
+            Neumaticos
+          </Heading>
+        </Box>
+        <Spacer />
+        <Box p="4">
+          <Stack direction="row" spacing={4}>
+            <NextLink href="/" passHref>
+              <Link>Home</Link>
+            </NextLink>
+
+            <NextLink href="/neumatico" passHref>
+              <Link>Stock</Link>
+            </NextLink>
+
+            <NextLink href="/neumatico/create" passHref>
+              <Link>Agregar</Link>
+            </NextLink>
+
+            <NextLink href="/neumatico/movimiento" passHref>
+              <Link>Movimientos</Link>
+            </NextLink>
+
+            <NextLink href="/neumatico/seguimiento" passHref>
+              <Link>Seguimiento</Link>
+            </NextLink>
+          </Stack>
+        </Box>
+      </Flex>
+    </>
+  )
 }

@@ -1,72 +1,89 @@
-import React from "react";
-import Link from "next/link";
-import Head from "next/head";
-import { useEffect, useState } from "react";
-import styles from "../../styles/Home.module.css";
-import { neumaticoService } from "../../services/neumatico.service";
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import Head from 'next/head'
 
-import { FaArrowsAltV, FaMinus } from "react-icons/fa";
-import { GrUpdate } from "react-icons/gr";
+import { neumaticoService } from '../../services/neumatico.service'
+
+import { FaArrowsAltV } from 'react-icons/fa'
+import {
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Box,
+  Heading,
+  Spacer,
+  SimpleGrid,
+} from '@chakra-ui/react'
 
 export default function ListAllNeumaticos() {
-  const [neumaticos, setNeumaticos] = useState([]);
+  const [neumaticos, setNeumaticos] = useState([])
 
   useEffect(() => {
     const getAllNeumaticos = async () => {
-      const res = await neumaticoService.getAll();
+      const res = await neumaticoService.getAll()
 
-      setNeumaticos(res);
-    };
-    getAllNeumaticos();
-  }, []);
+      setNeumaticos(res)
+    }
+    getAllNeumaticos()
+  }, [])
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>SAE - Neumaticos Stock</title>
       </Head>
-
-      <div>
-        {neumaticos.length == 0 && <p>Cargando....</p>}
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Equipo</th>
-              <th scope="col">Medida</th>
-              <th scope="col">Modelo</th>
-              <th scope="col">Marca</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Posicion</th>
-              <th scope="col">Info</th>
-            </tr>
-          </thead>
-          <tbody>
-            {neumaticos.length > 0 &&
-              neumaticos.map((n) => (
-                <tr key={n.id}>
-                  <th>{n.equipo}</th>
-                  <th>
-                    <Link href={"/neumatico/" + n.id + "/update"}>
-                      {n.medida}
-                    </Link>
-                  </th>
-                  <td>{n.modelo}</td>
-                  <td>{n.marca.name}</td>
-                  <td className={styles.tdStock}>
-                    {n.stock}
-                    <Link href={"/neumatico/" + n.id + "/stock"}>
-                      <a className={styles.buttonUpdate}>
-                        <FaArrowsAltV />
-                      </a>
-                    </Link>
-                  </td>
-                  <td>{n.posicion}</td>
-                  <td>{n.info}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+      <SimpleGrid columns={1} spacing={1}>
+        <Box height="40px">
+          <Heading as="h3" size="md" p={5}>
+            Stock de Neumaticos
+          </Heading>
+        </Box>
+        <Spacer />
+        <Box>
+          {neumaticos.length === 0 && <p>Cargando....</p>}
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Equipo</Th>
+                <Th>Medida</Th>
+                <Th>Modelo</Th>
+                <Th>Marca</Th>
+                <Th>Stock</Th>
+                <Th>Posicion</Th>
+                <Th>Info</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {neumaticos.length > 0 &&
+                neumaticos.map((n) => (
+                  <Tr key={n.id}>
+                    <Td>{n.equipo}</Td>
+                    <Td>
+                      <Link href={'/neumatico/' + n.id + '/update'}>
+                        {n.medida}
+                      </Link>
+                    </Td>
+                    <Td>{n.modelo}</Td>
+                    <Td>{n.marca.name}</Td>
+                    <Td>
+                      {n.stock}
+                      <Link href={'/neumatico/' + n.id + '/stock'}>
+                        <a>
+                          <FaArrowsAltV />
+                        </a>
+                      </Link>
+                    </Td>
+                    <Td>{n.posicion}</Td>
+                    <Td>{n.info}</Td>
+                  </Tr>
+                ))}
+            </Tbody>
+          </Table>
+        </Box>
+      </SimpleGrid>
+    </>
+  )
 }

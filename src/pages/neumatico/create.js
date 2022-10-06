@@ -6,9 +6,9 @@ export default function CreateNeumatico({ marcas }) {
   return (
     <>
       <Head>
-        <title>SAE - Create Neumaticos</title>
+        <title>SAE - Agregar Neumatico</title>
       </Head>
-      <Create marcas={marcas} />;
+      <Create marcas={marcas} />
     </>
   )
 }

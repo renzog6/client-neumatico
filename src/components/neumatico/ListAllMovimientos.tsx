@@ -1,57 +1,66 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import styles from "../../styles/Home.module.css";
-import { movimientoService } from "../../services/movimiento.service";
+import React, { useEffect, useState } from 'react'
+import { movimientoService } from '../../services/movimiento.service'
+import {
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Box,
+} from '@chakra-ui/react'
 
 export default function ListAllMovimientos() {
-  const [movimientos, setNeumaticos] = useState([]);
+  const [movimientos, setNeumaticos] = useState([])
 
   useEffect(() => {
     const getAllNeumaticos = async () => {
-      const res = await movimientoService.getAll();
-      setNeumaticos(res);
-    };
-    getAllNeumaticos();
-  }, []);
+      const res = await movimientoService.getAll()
+      setNeumaticos(res)
+    }
+    getAllNeumaticos()
+  }, [])
 
   function formatDate(data) {
-    const date = new Date(data);
-    let d = date.toLocaleDateString("es-AR", {
-      day: "2-digit", // possible values: 'numeric', '2-digit'
-      month: "2-digit", // possible values: 'numeric', '2-digit', 'long', 'short', 'narrow'
-      year: "2-digit", // possible values: 'numeric', '2-digit'
-    });
-    return d;
+    const date = new Date(data)
+    const d = date.toLocaleDateString('es-AR', {
+      day: '2-digit', // possible values: 'numeric', '2-digit'
+      month: '2-digit', // possible values: 'numeric', '2-digit', 'long', 'short', 'narrow'
+      year: '2-digit', // possible values: 'numeric', '2-digit'
+    })
+    return d
   }
 
   return (
-    <div className={styles.container}>
-      <div>
-        {movimientos.length == 0 && <p>Cargando....</p>}
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Fecha</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Neumatico</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Info</th>
-            </tr>
-          </thead>
-          <tbody>
+    <Box>
+      {movimientos.length === 0 && <p>Cargando....</p>}
+
+      <TableContainer>
+        <Table variant="striped" colorScheme="blue">
+          <Thead>
+            <Tr>
+              <Th>Fecha</Th>
+              <Th>Tipo</Th>
+              <Th>Nuematico</Th>
+              <Th>Cantidad</Th>
+              <Th>Info</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {movimientos.length > 0 &&
               movimientos.map((n) => (
-                <tr key={n.id}>
-                  <th>{formatDate(n.fecha)}</th>
-                  <td>{n.tipo}</td>
-                  <td>{n.neumatico}</td>
-                  <td>{n.cantidad}</td>
-                  <td>{n.info}</td>
-                </tr>
+                <Tr key={n.id}>
+                  <Td>{formatDate(n.fecha)}</Td>
+                  <Td>{n.tipo}</Td>
+                  <Td>{n.neumatico}</Td>
+                  <Td>{n.cantidad}</Td>
+                  <Td>{n.info}</Td>
+                </Tr>
               ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
+  )
 }
