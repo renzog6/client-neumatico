@@ -1,28 +1,40 @@
-import { Button } from '@chakra-ui/react'
+import { Button, Wrap, WrapItem, Center } from '@chakra-ui/react'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import styles from 'styles/Home.module.css'
-
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>SAE - Neumaticos</title>
       </Head>
-
-      <article>
-        <header>Neumaticos</header>
-
-        <div className="parent">
-          <div className="div1">
+      <Wrap spacing="30px" justify="center">
+        <WrapItem>
+          <Center w="200px" h="80px" bg="red.200">
             <Link href="/neumatico">Stock</Link>
-          </div>
-          <div className="div2">
-            <Button>Hola</Button>
-          </div>
-        </div>
-      </article>
-    </div>
+          </Center>
+        </WrapItem>
+        <WrapItem>
+          <Center w="200px" h="80px" bg="green.200">
+            <Link href="/deposito">Depositos</Link>
+          </Center>
+        </WrapItem>
+        <WrapItem>
+          <Center w="200px" h="80px" bg="tomato">
+            <Link href="/medida">Medidas</Link>
+          </Center>
+        </WrapItem>
+        <WrapItem>
+          <Center w="200px" h="80px" bg="blue.200">
+            Box 4
+          </Center>
+        </WrapItem>
+        <WrapItem>
+          <Center w="200px" h="80px" bg="blackAlpha.500">
+            Box 5
+          </Center>
+        </WrapItem>
+      </Wrap>
+    </>
   )
 }

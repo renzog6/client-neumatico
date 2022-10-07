@@ -29,7 +29,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/styles/ButtonStyles.js"
+    "src/styles/ButtonStyles.js",
+    "src/components/deposito/ListDepositos.tsx",
+    "src/pages/neumatico/movimiento.js"
   ],
   "exclude": ["node_modules"]
 }

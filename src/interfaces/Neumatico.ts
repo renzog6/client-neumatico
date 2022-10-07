@@ -4,16 +4,22 @@
 //
 // import { User } from 'path/to/interfaces';
 
-import { Marca } from './Marca';
+import { Marca } from './Marca'
+import { Deposito } from './Deposito'
+import { Medida } from './Medida'
+import { Uso, Estado } from './TiposEnum'
 
 export type Neumatico = {
-    id: number
-    equipo: string
-    medida: string
-    marca: Marca
-    modelo: string
-    posicion: string
-    stock: number
-    info: string
-    updateAt: Date
+  id: number
+  name: string
+  deposito: Deposito
+  medida: Medida
+  marca: Marca
+  modelo: string
+  posicion: string
+  stock: number
+  info: string
+  updateAt: Date
+  uso: Uso
+  estado: Estado
 }

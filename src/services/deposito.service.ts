@@ -1,20 +1,18 @@
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
-const baseUrl = `${publicRuntimeConfig.apiUrl}/neumaticos`
+const baseUrl = `${publicRuntimeConfig.apiUrl}/depositos`
 
-export const neumaticoService = {
+export const depositoService = {
   getAll,
   getById,
   create,
   update,
   delete: _delete,
-  updateStock,
 }
 
 const requestOptions = {
   method: 'X',
-  //headers: authHeader(url),
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -49,7 +47,6 @@ async function getById(id) {
     }
 
     const result = await response.json()
-
     return result
   } catch (err) {
     console.log(err)
@@ -61,7 +58,7 @@ function create(data) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    //credentials: "include",
+    // credentials: "include",
     body: JSON.stringify(data),
   }
   return fetch(baseUrl, requestOptions).then(handleResponse)
@@ -71,37 +68,17 @@ function update(id, data) {
   const requestOptions = {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    //credentials: "include",
+    // credentials: "include",
     body: JSON.stringify(data),
   }
   return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse)
-}
-
-async function updateStock(id, quantity) {
-  try {
-    requestOptions.method = 'PUT'
-    const response = await fetch(
-      `${baseUrl}/${id}/stock?quantity=${quantity}`,
-      requestOptions
-    )
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`)
-    }
-    const result = await response.json()
-
-    return result
-  } catch (err) {
-    console.log(err)
-    return null
-  }
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(id) {
   const requestOptions = {
     method: 'DELETE',
-    //headers: authHeader(url),
+    // headers: authHeader(url),
   }
   return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse)
 }

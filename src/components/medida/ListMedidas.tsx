@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Head from 'next/head'
 
-import { neumaticoService } from '../../services/neumatico.service'
+import { medidaService } from 'services/medida.service'
 
 import { FaArrowsAltV } from 'react-icons/fa'
 import {
@@ -18,12 +17,12 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react'
 
-export default function ListAllNeumaticos() {
+export default function ListMedidas() {
   const [neumaticos, setNeumaticos] = useState([])
 
   useEffect(() => {
     const getAllNeumaticos = async () => {
-      const res = await neumaticoService.getAll()
+      const res = await medidaService.getAll()
 
       setNeumaticos(res)
     }
@@ -32,9 +31,6 @@ export default function ListAllNeumaticos() {
 
   return (
     <>
-      <Head>
-        <title>SAE - Neumaticos Stock</title>
-      </Head>
       <SimpleGrid columns={1} spacing={1}>
         <Box height="40px">
           <Heading as="h3" size="md" p={5}>
@@ -47,12 +43,9 @@ export default function ListAllNeumaticos() {
           <Table>
             <Thead>
               <Tr>
-                <Th>Equipo</Th>
+                <Th>#</Th>
                 <Th>Medida</Th>
-                <Th>Modelo</Th>
-                <Th>Marca</Th>
-                <Th>Stock</Th>
-                <Th>Posicion</Th>
+                <Th>Alt</Th>
                 <Th>Info</Th>
               </Tr>
             </Thead>
@@ -60,23 +53,9 @@ export default function ListAllNeumaticos() {
               {neumaticos.length > 0 &&
                 neumaticos.map((n) => (
                   <Tr key={n.id}>
-                    <Td>{n.equipo}</Td>
-                    <Td>
-                      <Link href={'/neumatico/' + n.id + '/update'}>
-                        {n.medida}
-                      </Link>
-                    </Td>
-                    <Td>{n.modelo}</Td>
-                    <Td>{n.marca.name}</Td>
-                    <Td>
-                      {n.stock}
-                      <Link href={'/neumatico/' + n.id + '/stock'}>
-                        <a>
-                          <FaArrowsAltV />
-                        </a>
-                      </Link>
-                    </Td>
-                    <Td>{n.posicion}</Td>
+                    <Td>{n.id}</Td>
+                    <Td>{n.name}</Td>
+                    <Td>{n.alt}</Td>
                     <Td>{n.info}</Td>
                   </Tr>
                 ))}

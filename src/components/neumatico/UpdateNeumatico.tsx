@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useRouter } from 'next/router'
 
 import { toast } from 'react-toastify'
@@ -6,10 +6,13 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { useForm } from 'react-hook-form'
 
-import { Marca } from '../../interfaces/Marca'
-import { Neumatico } from '../../interfaces/Neumatico'
+import { Deposito } from 'interfaces/Deposito'
+import { Medida } from 'interfaces/Medida'
+import { Marca } from 'interfaces/Marca'
+import { Neumatico } from 'interfaces/Neumatico'
+import { Uso as tipoUso } from 'interfaces/TiposEnum'
 import { neumaticoService } from '../../services/neumatico.service'
-import { marcaService } from '../../services/marca.service'
+
 import {
   Box,
   Button,
@@ -22,19 +25,9 @@ import {
   WrapItem,
 } from '@chakra-ui/react'
 
-export default function Update({ neumatico }) {
+export default function Update({ neumatico, depositos, medidas, marcas }) {
   const router = useRouter()
   if (neumatico === null) router.push('/neumatico')
-
-  const [marcas, setMarcas] = useState([])
-
-  useEffect(() => {
-    const getAllMarcas = async () => {
-      const result = await marcaService.getAll()
-      setMarcas(result)
-    }
-    getAllMarcas()
-  }, [])
 
   const {
     register,
@@ -43,7 +36,7 @@ export default function Update({ neumatico }) {
   } = useForm<Neumatico>({
     defaultValues: {
       id: neumatico.id,
-      equipo: neumatico.equipo,
+      name: neumatico.name,
       medida: neumatico.medida,
       modelo: neumatico.modelo,
       posicion: neumatico.posicion,
@@ -52,12 +45,27 @@ export default function Update({ neumatico }) {
   })
 
   const saveFormData = async (data: Neumatico) => {
-    const m: Marca = {
+    const deposito: Deposito = {
+      id: +data.deposito,
+      name: '',
+      info: '',
+    }
+    data.deposito = deposito
+
+    const medida: Medida = {
+      id: +data.medida,
+      name: '',
+      alt: '',
+      info: '',
+    }
+    data.medida = medida
+
+    const marca: Marca = {
       id: +data.marca,
       name: '',
       info: '',
     }
-    data.marca = m
+    data.marca = marca
 
     const response = await neumaticoService.update(neumatico.id, data)
     if (response.status === 400) {
@@ -94,44 +102,71 @@ export default function Update({ neumatico }) {
         <form onSubmit={handleSubmit(saveFormData)}>
           <Wrap spacing="50px" justify="center" p={5}>
             <WrapItem>
-              {' '}
-              <label htmlFor="equipo">
-                Equipo
+              <label htmlFor="deposito">
+                Deposito
+                <Select
+                  w="280px"
+                  id="deposito"
+                  defaultValue={'DEFAULT'}
+                  {...register('deposito')}
+                  required
+                >
+                  <option value="DEFAULT" disabled>
+                    {neumatico.deposito.name}
+                  </option>
+                  {depositos.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.name} - {m.info}
+                    </option>
+                  ))}
+                </Select>
+              </label>
+            </WrapItem>
+            <WrapItem>
+              <label htmlFor="name">
+                Nombre
                 <Input
                   type="text"
-                  id="equipo"
-                  name="equipo"
-                  placeholder="Equipo"
-                  {...register('equipo')}
+                  id="name"
+                  name="name"
+                  placeholder="Nombre"
+                  {...register('name')}
                   required
                 />
               </label>
             </WrapItem>
             <WrapItem>
-              {' '}
               <label htmlFor="medida">
                 Medida
-                <Input
-                  type="text"
+                <Select
+                  w="280px"
                   id="medida"
-                  name="medida"
-                  placeholder="Medida"
+                  defaultValue={'DEFAULT'}
                   {...register('medida')}
                   required
-                />
+                >
+                  <option value="DEFAULT" disabled>
+                    {neumatico.medida.name}
+                  </option>
+                  {medidas.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.name}
+                    </option>
+                  ))}
+                </Select>
               </label>
             </WrapItem>
             <WrapItem>
-              {' '}
               <label htmlFor="marca">
                 Marca
                 <Select
+                  w="280px"
                   id="marca"
-                  defaultValue={neumatico.marca.id}
+                  defaultValue={'DEFAULT'}
                   {...register('marca')}
                   required
                 >
-                  <option value={neumatico.marca.id} disabled>
+                  <option value="DEFAULT" disabled>
                     {neumatico.marca.name}
                   </option>
                   {marcas.map((m) => (
@@ -143,7 +178,6 @@ export default function Update({ neumatico }) {
               </label>
             </WrapItem>
             <WrapItem>
-              {' '}
               <label htmlFor="modelo">
                 Modelo
                 <Input
@@ -157,28 +191,34 @@ export default function Update({ neumatico }) {
               </label>
             </WrapItem>
             <WrapItem>
-              {' '}
-              <label htmlFor="posicion">
-                Posicion
-                <Input
-                  type="text"
-                  id="posicion"
-                  name="posicion"
-                  placeholder="Posicion"
-                  {...register('posicion')}
+              <label htmlFor="tipoUso">
+                Tipo de Uso
+                <Select
+                  w="280px"
+                  id="tipoUso"
+                  defaultValue={'DEFAULT'}
+                  {...register('uso')}
                   required
-                />
+                >
+                  <option value="DEFAULT" disabled>
+                    {neumatico.uso}
+                  </option>
+                  {Object.values(tipoUso).map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </Select>
               </label>
             </WrapItem>
             <WrapItem>
-              {' '}
               <label htmlFor="info">
-                Info
+                Comentarios
                 <Input
                   type="text"
                   id="info"
                   name="info"
-                  placeholder="Comentarios...."
+                  placeholder="Comentarios..."
                   {...register('info')}
                 />
               </label>
