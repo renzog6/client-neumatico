@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 
 import { medidaService } from 'services/medida.service'
 
-import { FaArrowsAltV } from 'react-icons/fa'
 import {
   Table,
   Thead,
@@ -14,8 +12,13 @@ import {
   Box,
   Heading,
   Spacer,
-  SimpleGrid,
+  StackDivider,
+  VStack,
+  Button,
+  ButtonGroup,
+  Flex,
 } from '@chakra-ui/react'
+import { FaEdit } from 'react-icons/fa'
 
 export default function ListMedidas() {
   const [neumaticos, setNeumaticos] = useState([])
@@ -31,22 +34,32 @@ export default function ListMedidas() {
 
   return (
     <>
-      <SimpleGrid columns={1} spacing={1}>
-        <Box height="40px">
-          <Heading as="h3" size="md" p={5}>
-            Stock de Neumaticos
-          </Heading>
+      <VStack
+        divider={<StackDivider borderColor="gray.200" />}
+        spacing={3}
+        align="center"
+      >
+        <Box w="80%" h="40px" p={2}>
+          <Flex minWidth="max-content" alignItems="center" gap="2">
+            <Box p="2">
+              <Heading size="md">Medidas de Neumaticos</Heading>
+            </Box>
+            <Spacer />
+            <ButtonGroup gap="2">
+              <Button colorScheme="teal">Agregar</Button>
+            </ButtonGroup>
+          </Flex>
         </Box>
-        <Spacer />
-        <Box>
+        <Box maxW="lg" borderWidth="1px" borderRadius="lg" overflow="hidden">
           {neumaticos.length === 0 && <p>Cargando....</p>}
-          <Table>
+          <Table size="md" variant="striped" colorScheme="teal">
             <Thead>
               <Tr>
                 <Th>#</Th>
                 <Th>Medida</Th>
                 <Th>Alt</Th>
                 <Th>Info</Th>
+                <Th>X</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -57,12 +70,15 @@ export default function ListMedidas() {
                     <Td>{n.name}</Td>
                     <Td>{n.alt}</Td>
                     <Td>{n.info}</Td>
+                    <Td>
+                      <FaEdit />
+                    </Td>
                   </Tr>
                 ))}
             </Tbody>
           </Table>
         </Box>
-      </SimpleGrid>
+      </VStack>
     </>
   )
 }

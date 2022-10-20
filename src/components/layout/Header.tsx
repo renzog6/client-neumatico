@@ -19,11 +19,11 @@ export default function Header() {
             </NextLink>
 
             <NextLink href="/neumatico" passHref>
-              <Link>Stock</Link>
+              <Link>Listado</Link>
             </NextLink>
 
-            <NextLink href="/neumatico/create" passHref>
-              <Link>Agregar</Link>
+            <NextLink href="/neumatico/stock" passHref>
+              <Link>Stock</Link>
             </NextLink>
 
             <NextLink href="/neumatico/movimiento" passHref>

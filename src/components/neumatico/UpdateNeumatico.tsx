@@ -37,39 +37,31 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
     defaultValues: {
       id: neumatico.id,
       name: neumatico.name,
-      medida: neumatico.medida,
       modelo: neumatico.modelo,
       posicion: neumatico.posicion,
+      uso: neumatico.uso,
       info: neumatico.info,
     },
   })
 
   const saveFormData = async (data: Neumatico) => {
-    const deposito: Deposito = {
-      id: +data.deposito,
-      name: '',
-      info: '',
-    }
-    data.deposito = deposito
+    console.log('X ' + JSON.stringify(data))
+    // Set Deposito
+    neumatico.deposito.id = +data.deposito
+    data.deposito = neumatico.deposito
 
-    const medida: Medida = {
-      id: +data.medida,
-      name: '',
-      alt: '',
-      info: '',
-    }
-    data.medida = medida
+    // Set Medida
+    neumatico.medida.id = +data.medida
+    data.medida = neumatico.medida
 
-    const marca: Marca = {
-      id: +data.marca,
-      name: '',
-      info: '',
-    }
-    data.marca = marca
+    // Set Marca
+    neumatico.marca.id = +data.marca
+    data.marca = neumatico.marca
 
     const response = await neumaticoService.update(neumatico.id, data)
-    if (response.status === 400) {
-      toast.error('An 4000 error occurred while saving, please try again')
+
+    if (response.status === 400 || response.status === 500) {
+      toast.error('An error occurred while saving, please try again')
     } else if (response.ok) {
       toast.success('Actualizado con Exito!!!')
       router.push('/neumatico')
@@ -107,16 +99,16 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
                 <Select
                   w="280px"
                   id="deposito"
-                  defaultValue={'DEFAULT'}
+                  defaultValue={neumatico.deposito.id}
                   {...register('deposito')}
                   required
                 >
-                  <option value="DEFAULT" disabled>
+                  <option value={neumatico.deposito.id} disabled>
                     {neumatico.deposito.name}
                   </option>
                   {depositos.map((m) => (
                     <option key={m.id} value={m.id}>
-                      {m.name} - {m.info}
+                      {m.name}
                     </option>
                   ))}
                 </Select>
@@ -141,11 +133,11 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
                 <Select
                   w="280px"
                   id="medida"
-                  defaultValue={'DEFAULT'}
+                  defaultValue={neumatico.medida.id}
                   {...register('medida')}
                   required
                 >
-                  <option value="DEFAULT" disabled>
+                  <option value={neumatico.medida.id} disabled>
                     {neumatico.medida.name}
                   </option>
                   {medidas.map((m) => (
@@ -162,11 +154,11 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
                 <Select
                   w="280px"
                   id="marca"
-                  defaultValue={'DEFAULT'}
+                  defaultValue={neumatico.marca.id}
                   {...register('marca')}
                   required
                 >
-                  <option value="DEFAULT" disabled>
+                  <option value={neumatico.marca.id} disabled>
                     {neumatico.marca.name}
                   </option>
                   {marcas.map((m) => (
