@@ -1,19 +1,17 @@
 import React from 'react'
 import Header from './Header'
 
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Container, VStack } from '@chakra-ui/react'
 
 export default function Layout({ children }) {
   return (
-    <Grid>
-      <GridItem w="100%" bg="orange.300">
+    <VStack>
+      <Container maxW="95%" bg="green.100" color="#262626">
         <Header />
-      </GridItem>
-
-      <GridItem w="100%">{children}</GridItem>
-      <GridItem w="100%" bg="blue.300">
-        <footer>Powered by @renzog6</footer>
-      </GridItem>
-    </Grid>
+      </Container>
+      <Container h="95vh" maxW="95%" bg="gray.800">
+        {children}
+      </Container>
+    </VStack>
   )
 }

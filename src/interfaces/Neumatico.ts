@@ -9,7 +9,22 @@ import { Deposito } from './Deposito'
 import { Medida } from './Medida'
 import { Uso, Estado } from './TiposEnum'
 
-export type Neumatico = {
+/* export type Neumatico = {
+  id: number
+  name: string
+  deposito: Deposito
+  medida: Medida
+  marca: Marca
+  modelo: string
+  posicion: string
+  stock: number
+  info: string
+  updateAt: Date
+  uso: Uso
+  estado: Estado
+} */
+
+export interface Neumatico {
   id: number
   name: string
   deposito: Deposito

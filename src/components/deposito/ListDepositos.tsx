@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 
 import { depositoService } from 'services/deposito.service'
 
-import { FaArrowsAltV } from 'react-icons/fa'
 import {
   Table,
   Thead,
@@ -17,13 +15,14 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react'
 
+import { Neumatico } from 'interfaces/Neumatico'
+
 export default function ListDepositos() {
-  const [neumaticos, setNeumaticos] = useState([])
+  const [neumaticos, setNeumaticos] = useState<Neumatico[]>([])
 
   useEffect(() => {
     const getAllNeumaticos = async () => {
       const res = await depositoService.getAll()
-
       setNeumaticos(res)
     }
     getAllNeumaticos()

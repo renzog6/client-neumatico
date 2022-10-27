@@ -30,8 +30,8 @@ export default function Home() {
           </Center>
         </WrapItem>
         <WrapItem>
-          <Center w="200px" h="80px" bg="blackAlpha.500">
-            Box 5
+          <Center w="200px" h="80px" bg="yellow.500">
+            <Link href="/neumatico/asignar">Asignar Neumatico</Link>
           </Center>
         </WrapItem>
       </Wrap>

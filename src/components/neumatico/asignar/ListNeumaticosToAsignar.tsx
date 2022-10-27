@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NextLink from 'next/link'
 
-import { neumaticoService } from '../../services/neumatico.service'
+import { neumaticoService } from 'services/neumatico.service'
 
 import {
   Table,
@@ -26,7 +26,7 @@ import {
 
 import { Estado as tipoEstado } from 'interfaces/TiposEnum'
 
-export default function StockNeumaticos() {
+export default function ListNeumaticosToAsignar() {
   const [searchTerm, setSearchTerm] = useState('')
   const [neumaticos, setNeumaticos] = useState([])
 
@@ -51,22 +51,6 @@ export default function StockNeumaticos() {
         spacing={3}
         align="center"
       >
-        <Box w="80%" h="40px" p={2}>
-          <Flex minWidth="max-content" alignItems="center" gap="2">
-            <Box p="2">
-              <Heading size="md">Stock de Neumaticos</Heading>
-            </Box>
-            <Spacer />
-            <ButtonGroup gap="2">
-              <NextLink href="/neumatico/create" passHref>
-                <Button as="a" colorScheme="green">
-                  Agregar
-                </Button>
-              </NextLink>
-            </ButtonGroup>
-          </Flex>
-        </Box>
-
         <Box w="80%" borderWidth="1px" borderRadius="lg" overflow="hidden">
           <Box
             borderWidth="1px"
@@ -102,7 +86,7 @@ export default function StockNeumaticos() {
           </Box>
           <TableContainer>
             {neumaticos.length === 0 && <p>Cargando....</p>}
-            <Table size="md" variant="striped" colorScheme="yellow">
+            <Table size="sm" variant="striped" colorScheme="yellow">
               <Thead>
                 <Tr>
                   <Th>#</Th>
@@ -138,20 +122,6 @@ export default function StockNeumaticos() {
                     </Tr>
                   ))}
               </Tbody>
-              <Tfoot>
-                <Tr>
-                  <Th></Th>
-                  <Th></Th>
-                  <Th></Th>
-                  <Th>Total:</Th>
-                  <Th>
-                    {neumaticos
-                      .map((item) => item.stock)
-                      .reduce((prev, curr) => prev + curr, 0)}
-                  </Th>
-                  <Th></Th>
-                </Tr>
-              </Tfoot>
             </Table>
           </TableContainer>
         </Box>

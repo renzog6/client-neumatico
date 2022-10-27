@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "components/*": ["src/components/*"],
+      "contexts/*": ["src/contexts/*"],
       "interfaces/*": ["src/interfaces/*"],
       "services/*": ["src/services/*"],
       "styles/*": ["src/styles/*"]
@@ -25,13 +26,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/styles/ButtonStyles.js",
-    "src/components/deposito/ListDepositos.tsx",
-    "src/pages/neumatico/movimiento.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.js", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
