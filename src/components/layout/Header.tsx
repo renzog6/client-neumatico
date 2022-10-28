@@ -1,8 +1,19 @@
 import React from 'react'
 import NextLink from 'next/link'
-import { Box, Flex, Heading, Link, Spacer, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Link,
+  Spacer,
+  Stack,
+  useColorMode,
+} from '@chakra-ui/react'
 
 export default function Header() {
+  const { toggleColorMode } = useColorMode()
+
   return (
     <>
       <Flex>
@@ -33,6 +44,10 @@ export default function Header() {
             <NextLink href="/neumatico/seguimiento" passHref>
               <Link>Seguimiento</Link>
             </NextLink>
+
+            <Button size="sm" colorScheme="blue" onClick={toggleColorMode}>
+              Color
+            </Button>
           </Stack>
         </Box>
       </Flex>

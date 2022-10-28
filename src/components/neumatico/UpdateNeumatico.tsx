@@ -6,9 +6,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { useForm } from 'react-hook-form'
 
-import { Deposito } from 'interfaces/Deposito'
-import { Medida } from 'interfaces/Medida'
-import { Marca } from 'interfaces/Marca'
 import { Neumatico } from 'interfaces/Neumatico'
 import { Uso as tipoUso } from 'interfaces/TiposEnum'
 import { neumaticoService } from '../../services/neumatico.service'

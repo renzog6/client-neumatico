@@ -9,7 +9,6 @@ export const neumaticoService = {
   create,
   update,
   delete: _delete,
-  updateStock,
   getStock,
 }
 
@@ -22,10 +21,15 @@ const requestOptions = {
   },
 }
 
-async function getAll() {
+async function getAll(estado = null) {
   try {
     requestOptions.method = 'GET'
-    const response = await fetch(baseUrl, requestOptions)
+    let response = null
+    if (estado === null) {
+      response = await fetch(baseUrl, requestOptions)
+    } else {
+      response = await fetch(`${baseUrl}?estado=${estado}`, requestOptions)
+    }
 
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`)
@@ -83,26 +87,6 @@ function _delete(id) {
     // headers: authHeader(url),
   }
   return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse)
-}
-
-async function updateStock(id, quantity) {
-  try {
-    requestOptions.method = 'PUT'
-    const response = await fetch(
-      `${baseUrl}/${id}/stock?quantity=${quantity}`,
-      requestOptions
-    )
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`)
-    }
-    const result = await response.json()
-
-    return result
-  } catch (err) {
-    console.log(err)
-    return null
-  }
 }
 
 async function getStock(estado) {

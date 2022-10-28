@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import NextLink from 'next/link'
 
 import { neumaticoService } from 'services/neumatico.service'
 
@@ -11,17 +10,11 @@ import {
   Tbody,
   Td,
   Box,
-  Heading,
-  Spacer,
-  ButtonGroup,
-  Flex,
   StackDivider,
   VStack,
   Input,
   TableContainer,
-  Button,
   Select,
-  Tfoot,
 } from '@chakra-ui/react'
 
 import { Estado as tipoEstado } from 'interfaces/TiposEnum'

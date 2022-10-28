@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import NextLink from 'next/link'
-
-import { neumaticoService } from '../../services/neumatico.service'
-
 import {
   Table,
   Thead,
@@ -20,15 +17,32 @@ import {
   ButtonGroup,
   StackDivider,
   VStack,
+  Select,
 } from '@chakra-ui/react'
+import { FaEdit } from 'react-icons/fa'
+
+import { neumaticoService } from '../../services/neumatico.service'
+import { Estado as tipoEstado } from 'interfaces/TiposEnum'
 
 export default function ListAllNeumaticos() {
   const [searchTerm, setSearchTerm] = useState('')
   const [neumaticos, setNeumaticos] = useState([])
 
+  const changeEstado = async (e) => {
+    console.log(e.target.value)
+    const estado = e.target.value
+    if (estado === 'Todos') {
+      const res = await neumaticoService.getAll()
+      setNeumaticos(res)
+    } else {
+      const res = await neumaticoService.getAll(estado)
+      setNeumaticos(res)
+    }
+  }
+
   useEffect(() => {
     const getAllNeumaticos = async () => {
-      const res = await neumaticoService.getAll()
+      const res = await neumaticoService.getAll('Nuevo')
       setNeumaticos(res)
     }
     getAllNeumaticos()
@@ -55,8 +69,13 @@ export default function ListAllNeumaticos() {
           </ButtonGroup>
         </Box>
 
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
-          <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
+          <Box
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+            display="flex"
+          >
             <Input
               placeholder="Buscar..."
               size="md"
@@ -64,13 +83,31 @@ export default function ListAllNeumaticos() {
                 setSearchTerm(event.target.value)
               }}
             />
+
+            <Select
+              w="180px"
+              id="estado"
+              defaultValue={tipoEstado.Nuevo}
+              onChange={changeEstado}
+              required
+            >
+              <option value={tipoEstado.Nuevo} disabled>
+                {tipoEstado.Nuevo}
+              </option>
+              <option value="Todos">Todos</option>
+              {Object.values(tipoEstado).map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </Select>
           </Box>
           <TableContainer>
             {neumaticos.length === 0 && <p>Cargando....</p>}
-            <Table size="md" variant="striped" colorScheme="orange">
+            <Table size="sm" variant="striped" colorScheme="orange">
               <Thead>
                 <Tr>
-                  <Th>Nombre</Th>
+                  <Th>Serie</Th>
                   <Th>Medida</Th>
                   <Th>Modelo</Th>
                   <Th>Marca</Th>
@@ -110,7 +147,11 @@ export default function ListAllNeumaticos() {
                         <Td>{n.estado}</Td>
                         <Td>{n.deposito.name}</Td>
                         <Td>{n.info}</Td>
-                        <Td>{'-'}</Td>
+                        <Td>
+                          <Button>
+                            <FaEdit />
+                          </Button>
+                        </Td>
                       </Tr>
                     ))}
               </Tbody>
