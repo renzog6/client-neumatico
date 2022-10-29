@@ -23,6 +23,7 @@
     "rxjs": "^7.5.7"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.0.0",
     "@types/node": "^18.0.1",
     "@types/react": "^18.0.1",
     "@typescript-eslint/eslint-plugin": "^5.38.1",

@@ -10,6 +10,7 @@ import {
   Stack,
   useColorMode,
 } from '@chakra-ui/react'
+import { FaPalette } from 'react-icons/fa'
 
 export default function Header() {
   const { toggleColorMode } = useColorMode()
@@ -45,8 +46,8 @@ export default function Header() {
               <Link>Seguimiento</Link>
             </NextLink>
 
-            <Button size="sm" colorScheme="blue" onClick={toggleColorMode}>
-              Color
+            <Button size="sm" colorScheme="orange" onClick={toggleColorMode}>
+              <FaPalette />
             </Button>
           </Stack>
         </Box>

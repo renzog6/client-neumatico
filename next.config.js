@@ -13,7 +13,7 @@ const nextConfig = {
     apiUrl:
       process.env.NODE_ENV === 'development'
         ? 'http://192.168.88.91:8091/api' // development api
-        : 'http://localhost:8091/api', // production api
+        : 'http://192.168.88.80:8091/api', // production api
   },
 }
 

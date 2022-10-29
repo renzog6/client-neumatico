@@ -3,9 +3,12 @@ import { extendTheme } from '@chakra-ui/react'
 import { ButtonStyles as Button } from './ButtonStyles'
 
 // 2. Add your color mode config
-const customeTheme = extendTheme({
-  initialColorMode: 'dark',
-  useSystemColorMode: false,
+const config = extendTheme({
+  config: {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
+  },
+
   colors: {
     primary: '#38B2AC',
     brand: {
@@ -35,6 +38,6 @@ const customeTheme = extendTheme({
   },
 })
 
-const theme = extendTheme({ customeTheme })
+const theme = extendTheme(config)
 
 export default theme
