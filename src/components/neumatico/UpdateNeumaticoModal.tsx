@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 
 export default function UpdateNeumaticoModal({ isOpen, onClose, modalData }) {
-  const { title, price } = modalData || {}
+  const { name, uso, medida } = modalData || {}
 
   const handleModalClose = () => {
     setTimeout(() => {
@@ -23,35 +23,35 @@ export default function UpdateNeumaticoModal({ isOpen, onClose, modalData }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal
+      closeOnOverlayClick={false}
+      isOpen={isOpen}
+      onClose={onClose}
+      size="xl"
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
-        <ModalHeader>Product Details</ModalHeader>
+        <ModalHeader>Neumatico: {modalData ? medida.name : ''}</ModalHeader>
         <ModalBody>
           <Box w="full" h="full">
             <Flex w="full" h="300px" position="relative">
-              IMAGEN
+              {name}
             </Flex>
 
             <Box pt="3">
               <Box mt="3" fontWeight="semibold" as="h4" lineHeight="tight">
-                {title}
+                {uso}
               </Box>
-              ${price}
             </Box>
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button
-            bg="cyan.700"
-            color="white"
-            w="150px"
-            size="lg"
-            onClick={handleModalClose}
-            _hover={{ bg: 'cyan.800' }}
-          >
-            Purchase
+          <Button onClick={handleModalClose} colorScheme="blue" mr={3}>
+            Save
+          </Button>
+          <Button onClick={onClose} colorScheme="red" mr={3}>
+            Cancel
           </Button>
         </ModalFooter>
       </ModalContent>

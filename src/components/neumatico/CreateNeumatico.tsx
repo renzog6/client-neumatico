@@ -1,5 +1,18 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import {
+  Stack,
+  Button,
+  Heading,
+  Box,
+  Spacer,
+  Wrap,
+  WrapItem,
+  Input,
+  Select,
+  Center,
+  forwardRef,
+} from '@chakra-ui/react'
 
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -15,19 +28,6 @@ import { Neumatico } from 'interfaces/Neumatico'
 import { Uso as tipoUso, Estado as tipoEstado } from 'interfaces/TiposEnum'
 
 import { neumaticoService } from '../../services/neumatico.service'
-import {
-  Stack,
-  Button,
-  Heading,
-  Box,
-  Spacer,
-  Wrap,
-  WrapItem,
-  Input,
-  Select,
-  Center,
-  forwardRef,
-} from '@chakra-ui/react'
 
 export default function Create({ depositos, medidas, marcas }) {
   const router = useRouter()

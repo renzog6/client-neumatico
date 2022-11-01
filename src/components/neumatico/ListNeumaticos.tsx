@@ -18,15 +18,25 @@ import {
   StackDivider,
   VStack,
   Select,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { FaEdit } from 'react-icons/fa'
 
 import { neumaticoService } from '../../services/neumatico.service'
 import { Estado as tipoEstado } from 'interfaces/TiposEnum'
+import UpdateNeumaticoModal from './UpdateNeumaticoModal'
 
 export default function ListAllNeumaticos() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [searchTerm, setSearchTerm] = useState('')
   const [neumaticos, setNeumaticos] = useState([])
+  const [modalData, setModalData] = useState('')
+
+  const handleClik = (data) => {
+    console.log(data)
+    setModalData(data)
+    onOpen()
+  }
 
   const changeEstado = async (e) => {
     console.log(e.target.value)
@@ -148,7 +158,11 @@ export default function ListAllNeumaticos() {
                         <Td>{n.deposito.name}</Td>
                         <Td>{n.info}</Td>
                         <Td>
-                          <Button>
+                          <Button
+                            bg="facebook"
+                            size="sm"
+                            onClick={() => handleClik(n)}
+                          >
                             <FaEdit />
                           </Button>
                         </Td>
@@ -157,6 +171,11 @@ export default function ListAllNeumaticos() {
               </Tbody>
             </Table>
           </TableContainer>
+          <UpdateNeumaticoModal
+            isOpen={isOpen}
+            onClose={onClose}
+            modalData={modalData}
+          />
         </Box>
       </VStack>
     </>

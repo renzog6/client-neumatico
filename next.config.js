@@ -15,6 +15,9 @@ const nextConfig = {
         ? 'http://192.168.88.91:8091/api' // development api
         : 'http://192.168.88.80:8091/api', // production api
   },
+  httpAgentOptions: {
+    keepAlive: false,
+  },
 }
 
 module.exports = nextConfig
