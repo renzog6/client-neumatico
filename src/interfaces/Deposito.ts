@@ -7,6 +7,6 @@
 
 export interface Deposito {
   id: number
-  name: string
-  info: string
+  name?: string
+  info?: string
 }

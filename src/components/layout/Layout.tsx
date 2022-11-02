@@ -1,17 +1,17 @@
 import React from 'react'
 import Header from './Header'
 
-import { Container, VStack } from '@chakra-ui/react'
+import { Box, Container, VStack } from '@chakra-ui/react'
 
 export default function Layout({ children }) {
   return (
-    <VStack>
-      <Container maxW="95%" bg="green.100" color="#262626">
+    <VStack w={'full'} h={'100vh'}>
+      <Container maxW="95%" bg="green.300">
         <Header />
       </Container>
-      <Container h="95vh" maxW="95%" bg="gray.800">
+      <Box w="95%" h="95vh" bg="red.800" overflowY="scroll">
         {children}
-      </Container>
+      </Box>
     </VStack>
   )
 }

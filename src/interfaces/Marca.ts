@@ -5,7 +5,7 @@
 // import { User } from 'path/to/interfaces';
 
 export type Marca = {
-    id: number
-    name: string
-    info: string
+  id: number
+  name?: string
+  info?: string
 }

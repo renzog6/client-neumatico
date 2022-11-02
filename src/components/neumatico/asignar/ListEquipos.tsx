@@ -52,7 +52,7 @@ export default function ListEquipos() {
         spacing={3}
         align="center"
       >
-        <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Box w="100%" borderWidth="1px" borderRadius="lg">
           <Box
             borderWidth="1px"
             borderRadius="lg"

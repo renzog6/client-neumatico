@@ -11,23 +11,18 @@ import {
   Input,
   Select,
   Center,
-  forwardRef,
 } from '@chakra-ui/react'
 
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { toast } from 'react-toastify'
 
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { Deposito } from 'interfaces/Deposito'
-import { Medida } from 'interfaces/Medida'
-import { Marca } from 'interfaces/Marca'
 import { Neumatico } from 'interfaces/Neumatico'
 import { Uso as tipoUso, Estado as tipoEstado } from 'interfaces/TiposEnum'
-
 import { neumaticoService } from '../../services/neumatico.service'
+import FechaCustom from 'components/FechaCustom'
 
 export default function Create({ depositos, medidas, marcas }) {
   const router = useRouter()
@@ -35,7 +30,6 @@ export default function Create({ depositos, medidas, marcas }) {
   const [quantity, setQuantity] = useState(1)
 
   const changeQuantity = (e) => {
-    console.log('e. ' + e.target.value + ' c: ' + quantity)
     if (e.target.value >= 1 && e.target.value <= 50) {
       setQuantity(e.target.value)
     } else {
@@ -49,38 +43,33 @@ export default function Create({ depositos, medidas, marcas }) {
     formState: { isSubmitting },
   } = useForm<Neumatico>()
 
-  const FechaCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <Button w="280px" onClick={onClick} ref={ref}>
-      {value}
-    </Button>
-  ))
+  const saveFormData: SubmitHandler<Neumatico> = async (data) => {
+    console.log({ data })
+    const neumatico: Neumatico = {
+      id: 0,
+      modelo: data.modelo,
+      posicion: data.posicion,
+      stock: 0,
+      info: data.info,
+      uso: data.uso,
+      estado: data.estado,
+      updateAt: fecha,
+      createAt: fecha,
+    }
 
-  const saveFormData = async (data: Neumatico) => {
-    const deposito: Deposito = {
+    neumatico.deposito = {
       id: +data.deposito,
-      name: '',
-      info: '',
     }
-    data.deposito = deposito
-
-    const medida: Medida = {
+    neumatico.medida = {
       id: +data.medida,
-      name: '',
-      alt: '',
-      info: '',
     }
-    data.medida = medida
-
-    const marca: Marca = {
+    neumatico.marca = {
       id: +data.marca,
-      name: '',
-      info: '',
     }
-    data.marca = marca
 
     for (let i = 0; i < quantity; i++) {
-      data.name = generateString(5)
-      const response = await neumaticoService.create(data)
+      neumatico.name = generateString(5)
+      const response = await neumaticoService.create(neumatico)
       if (response.status === 400) {
         console.log('ERROR')
       } else if (response.ok) {
@@ -110,12 +99,7 @@ export default function Create({ depositos, medidas, marcas }) {
             <WrapItem>
               <label htmlFor="Fecha">
                 Fecha
-                <DatePicker
-                  dateFormat="dd/MM/yyyy"
-                  selected={fecha}
-                  onChange={(date) => setFecha(date)}
-                  customInput={<FechaCustomInput />}
-                />
+                <FechaCustom getFecha={setFecha} />
               </label>
             </WrapItem>
             <WrapItem>
@@ -125,8 +109,7 @@ export default function Create({ depositos, medidas, marcas }) {
                   w="280px"
                   id="deposito"
                   defaultValue={depositos[0].id}
-                  {...register('deposito')}
-                  required
+                  {...register('deposito', { required: true })}
                 >
                   <option value={depositos[0].id} disabled>
                     {depositos[0].name}

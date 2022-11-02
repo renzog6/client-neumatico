@@ -12,10 +12,10 @@ export default function AsignacionNeumatico() {
   return (
     <>
       <Head>
-        <title>SAE - Home Neumaticos</title>
+        <title>SAE - Asignar Neumaticos</title>
       </Head>
       <AsignarProvider>
-        <Box p={4}>
+        <Box>
           <Grid
             h="90vh"
             templateRows="repeat(2, 1fr)"
@@ -32,7 +32,7 @@ export default function AsignacionNeumatico() {
             <GridItem w="100%" minW="350px" colSpan={2} bg="gray.500">
               <NeumaticoDetalle />
             </GridItem>
-            <GridItem w="100%" colSpan={4} p={2}>
+            <GridItem w="100%" colSpan={4} p={1}>
               <ListNeumaticosToAsignar />
             </GridItem>
           </Grid>

@@ -65,7 +65,7 @@ export default function ListAllNeumaticos() {
         spacing={3}
         align="center"
       >
-        <Box w="80%" p={2} display="flex">
+        <Box w="100%" p={2} display="flex">
           <Box p="2">
             <Heading size="md">Listado de Neumaticos</Heading>
           </Box>

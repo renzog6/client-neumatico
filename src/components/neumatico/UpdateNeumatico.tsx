@@ -46,7 +46,7 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
   })
 
   const saveFormData = async (data: Neumatico) => {
-    console.log('X ' + fecha)
+    data.updateAt = fecha
     // Set Deposito
     neumatico.deposito.id = +data.deposito
     data.deposito = neumatico.deposito
@@ -98,7 +98,7 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
               <WrapItem>
                 <label htmlFor="Fecha">
                   Fecha
-                  <FechaCustom />
+                  <FechaCustom getFecha={setFecha} />
                 </label>
               </WrapItem>
               <WrapItem>

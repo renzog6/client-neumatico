@@ -44,7 +44,7 @@ export default function ListNeumaticosToAsignar() {
         spacing={3}
         align="center"
       >
-        <Box w="80%" borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
           <Box
             borderWidth="1px"
             borderRadius="lg"
@@ -77,9 +77,9 @@ export default function ListNeumaticosToAsignar() {
               ))}
             </Select>
           </Box>
-          <TableContainer>
+          <TableContainer w="100%" maxH="220" overflowY="scroll">
             {neumaticos.length === 0 && <p>Cargando....</p>}
-            <Table size="sm" variant="striped" colorScheme="yellow">
+            <Table maxH="200" size="sm" variant="striped" colorScheme="yellow">
               <Thead>
                 <Tr>
                   <Th>#</Th>

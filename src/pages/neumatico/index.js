@@ -1,14 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
-import ListNeumaticos from 'components/neumatico/ListNeumaticos'
+import ListAllNeumaticos from 'components/neumatico/ListAllNeumaticos'
 
 export default function HomeNeumatico() {
   return (
     <>
       <Head>
-        <title>SAE - Home Neumaticos</title>
+        <title>SAE - Listado Neumaticos</title>
       </Head>
-      <ListNeumaticos />
+      <ListAllNeumaticos />
     </>
   )
 }

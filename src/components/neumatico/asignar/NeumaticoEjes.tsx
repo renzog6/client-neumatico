@@ -35,7 +35,7 @@ const NeumaticoEjes = () => {
           const radio = getRadioProps({ value })
 
           if (value === 'Y') {
-            return <GridItem key={value + index} h="20px" colSpan={8} />
+            return <GridItem key={value + index} h="25px" colSpan={8} />
           }
           if (value === 'E') {
             return (
@@ -47,11 +47,7 @@ const NeumaticoEjes = () => {
             )
           }
           if (value === 'X') {
-            return (
-              <GridItem key={value + index} h="20px" colSpan={1}>
-                x
-              </GridItem>
-            )
+            return <GridItem key={value + index} h="20px" colSpan={1} />
           } else {
             return (
               <GridItem key={value} h="20px" colSpan={1}>
