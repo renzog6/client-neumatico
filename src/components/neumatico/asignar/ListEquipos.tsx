@@ -23,21 +23,21 @@ import { useAsignarContext } from './asignar.context'
 
 export default function ListEquipos() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [neumaticos, setNeumaticos] = useState([])
+  const [equipos, setEquipos] = useState([])
 
   const { equipoSelect, setEquipo } = useAsignarContext()
 
   const changeEstado = async (e) => {
     const res = await equipoService.getAll(e.target.value)
-    setNeumaticos(res)
+    setEquipos(res)
   }
 
   useEffect(() => {
-    const getStock = async () => {
+    const getEquipos = async () => {
       const res = await equipoService.getAll('Camion')
-      setNeumaticos(res)
+      setEquipos(res)
     }
-    getStock()
+    getEquipos()
   }, [])
 
   const handleClick = (data) => {
@@ -85,7 +85,7 @@ export default function ListEquipos() {
             </Select>
           </Box>
           <TableContainer>
-            {neumaticos.length === 0 && <p>Cargando....</p>}
+            {equipos.length === 0 && <p>Cargando....</p>}
             <Table size="sm" variant="simple" colorScheme="yellow">
               <Thead>
                 <Tr>
@@ -95,7 +95,7 @@ export default function ListEquipos() {
                 </Tr>
               </Thead>
               <Tbody>
-                {neumaticos
+                {equipos
                   // eslint-disable-next-line array-callback-return
                   .filter((val) => {
                     if (searchTerm === '') {

@@ -1,6 +1,5 @@
 export const Camion = () => {
   return [
-    'Y',
     'X',
     'X',
     'A01',
@@ -37,7 +36,6 @@ export const Camion = () => {
 
 export const Acoplado4Ejes = () => {
   return [
-    'Y',
     'X',
     'A01',
     'A02',

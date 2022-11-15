@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { neumaticoService } from 'services/neumatico.service'
-
 import {
   Table,
   Thead,
@@ -15,26 +13,36 @@ import {
   Input,
   TableContainer,
   Select,
+  Button,
 } from '@chakra-ui/react'
 
 import { Estado as tipoEstado } from 'interfaces/TiposEnum'
+import { FaCheck } from 'react-icons/fa'
+import { neumaticoService } from 'services/neumatico.service'
+import { useAsignarContext } from './asignar.context'
 
 export default function ListNeumaticosToAsignar() {
+  const { neumatico, setNeumatico } = useAsignarContext()
+
   const [searchTerm, setSearchTerm] = useState('')
   const [neumaticos, setNeumaticos] = useState([])
 
   const changeEstado = async (e) => {
     console.log(e.target.value)
-    const res = await neumaticoService.getStock(e.target.value)
+    const res = await neumaticoService.getByDepositoAndMedida(1, 1)
     setNeumaticos(res)
   }
 
+  const selectedNeumatico = (data) => {
+    setNeumatico(data)
+  }
+
   useEffect(() => {
-    const getStock = async () => {
-      const res = await neumaticoService.getStock('Nuevo')
+    const getNeumaticos = async () => {
+      const res = await neumaticoService.getByDepositoAndMedida(1, 1)
       setNeumaticos(res)
     }
-    getStock()
+    getNeumaticos()
   }, [])
 
   return (
@@ -43,8 +51,9 @@ export default function ListNeumaticosToAsignar() {
         divider={<StackDivider borderColor="gray.200" />}
         spacing={3}
         align="center"
+        w="full"
       >
-        <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Box w="full" borderWidth="1px" borderRadius="lg" overflow="hidden">
           <Box
             borderWidth="1px"
             borderRadius="lg"
@@ -53,7 +62,7 @@ export default function ListNeumaticosToAsignar() {
           >
             <Input
               placeholder="Buscar..."
-              size="md"
+              size="sm"
               onChange={(event) => {
                 setSearchTerm(event.target.value)
               }}
@@ -62,6 +71,7 @@ export default function ListNeumaticosToAsignar() {
             <Select
               w="180px"
               id="estado"
+              size="sm"
               defaultValue={tipoEstado.Nuevo}
               onChange={changeEstado}
               required
@@ -79,14 +89,12 @@ export default function ListNeumaticosToAsignar() {
           </Box>
           <TableContainer w="100%" maxH="220" overflowY="scroll">
             {neumaticos.length === 0 && <p>Cargando....</p>}
-            <Table maxH="200" size="sm" variant="striped" colorScheme="yellow">
+            <Table maxH="200" size="sm" variant="simple" colorScheme="yellow">
               <Thead>
                 <Tr>
-                  <Th>#</Th>
-                  <Th>Para</Th>
+                  <Th>ID</Th>
                   <Th>Medida</Th>
                   <Th>Uso</Th>
-                  <Th>Stock</Th>
                   <Th>X</Th>
                 </Tr>
               </Thead>
@@ -97,7 +105,7 @@ export default function ListNeumaticosToAsignar() {
                     if (searchTerm === '') {
                       return val
                     } else if (
-                      val.medida
+                      val.name
                         .toLowerCase()
                         .includes(searchTerm.toLocaleLowerCase())
                     ) {
@@ -105,13 +113,23 @@ export default function ListNeumaticosToAsignar() {
                     }
                   })
                   .map((n) => (
-                    <Tr key={n.id + n.uso}>
-                      <Td>{n.id}</Td>
-                      <Td>{n.info}</Td>
-                      <Td>{n.medida}</Td>
+                    <Tr
+                      key={n.id + n.uso}
+                      _hover={{
+                        bg: 'teal.400',
+                        color: 'white',
+                        borderColor: 'teal.600',
+                      }}
+                      bg={n.id === neumatico.id ? 'red.600' : ''}
+                    >
+                      <Td>{n.name}</Td>
+                      <Td>{n.medida.name}</Td>
                       <Td>{n.uso}</Td>
-                      <Td>{n.stock}</Td>
-                      <Td>{'-'}</Td>
+                      <Td>
+                        <Button size="sm" onClick={() => selectedNeumatico(n)}>
+                          <FaCheck />
+                        </Button>
+                      </Td>
                     </Tr>
                   ))}
               </Tbody>

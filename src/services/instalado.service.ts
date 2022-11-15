@@ -1,16 +1,14 @@
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
-const baseUrl = `${publicRuntimeConfig.apiUrl}/neumaticos`
+const baseUrl = `${publicRuntimeConfig.apiUrl}/instalados`
 
-export const neumaticoService = {
-  getAll,
+export const instaladoService = {
+  getAllInstalados,
   getById,
   create,
   update,
   delete: _delete,
-  getStock,
-  getByDepositoAndMedida,
 }
 
 const requestOptions = {
@@ -22,40 +20,13 @@ const requestOptions = {
   },
 }
 
-async function getAll(estado = null) {
+async function getAllInstalados(equipoId) {
   try {
     requestOptions.method = 'GET'
-    let response = null
-    if (estado === null) {
-      response = await fetch(baseUrl, requestOptions)
-    } else {
-      response = await fetch(`${baseUrl}?estado=${estado}`, requestOptions)
-    }
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`)
-    }
-
-    const result = await response.json()
-    return result
-  } catch (err) {
-    console.log(err)
-    return []
-  }
-}
-
-async function getByDepositoAndMedida(deposito = null, medida = null) {
-  try {
-    requestOptions.method = 'GET'
-    let response = null
-    if (deposito === null) {
-      response = await fetch(baseUrl, requestOptions)
-    } else {
-      response = await fetch(
-        `${baseUrl}/disponibles?deposito=${deposito}&medida=${medida}`,
-        requestOptions
-      )
-    }
+    const response = await fetch(
+      `${baseUrl}?equipo_id=${equipoId}`,
+      requestOptions
+    )
 
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`)
@@ -79,7 +50,6 @@ async function getById(id) {
     }
 
     const result = await response.json()
-
     return result
   } catch (err) {
     console.log(err)
@@ -91,9 +61,9 @@ function create(data) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    // credentials: "include",
     body: JSON.stringify(data),
   }
-  console.log('request::: ' + JSON.stringify(data))
   return fetch(baseUrl, requestOptions).then(handleResponse)
 }
 
@@ -101,6 +71,7 @@ function update(id, data) {
   const requestOptions = {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
+    // credentials: "include",
     body: JSON.stringify(data),
   }
   return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse)
@@ -115,32 +86,12 @@ function _delete(id) {
   return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse)
 }
 
-async function getStock(estado) {
-  try {
-    requestOptions.method = 'GET'
-    const response = await fetch(
-      `${baseUrl}/stock?estado=${estado}`,
-      requestOptions
-    )
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`)
-    }
-
-    const result = await response.json()
-    return result
-  } catch (err) {
-    console.log(err)
-    return []
-  }
-}
-
 function handleResponse(response) {
   if (!response.ok) {
     const error = response.statusText
-    console.log('Reponse::: ' + response.status)
-    // return Promise.reject(error)
-    return error
+    console.log('handleResponseError: ')
+    console.log(response)
+    return Promise.reject(error)
   }
   return response
 }

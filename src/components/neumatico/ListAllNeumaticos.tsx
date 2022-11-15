@@ -11,7 +11,6 @@ import {
   Heading,
   Link,
   Spacer,
-  TableContainer,
   Input,
   Button,
   ButtonGroup,
@@ -112,10 +111,10 @@ export default function ListAllNeumaticos() {
               ))}
             </Select>
           </Box>
-          <TableContainer>
+          <Box overflowY="auto" maxHeight="650px">
             {neumaticos.length === 0 && <p>Cargando....</p>}
             <Table size="sm" variant="striped" colorScheme="orange">
-              <Thead>
+              <Thead position="sticky" top={0} bg="gray.900">
                 <Tr>
                   <Th>Serie</Th>
                   <Th>Medida</Th>
@@ -170,7 +169,7 @@ export default function ListAllNeumaticos() {
                     ))}
               </Tbody>
             </Table>
-          </TableContainer>
+          </Box>
           <UpdateNeumaticoModal
             isOpen={isOpen}
             onClose={onClose}

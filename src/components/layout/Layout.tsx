@@ -9,7 +9,7 @@ export default function Layout({ children }) {
       <Container maxW="95%" bg="green.300">
         <Header />
       </Container>
-      <Box w="95%" h="95vh" bg="red.800" overflowY="scroll">
+      <Box w="95%" h="95vh" bg="gray.800">
         {children}
       </Box>
     </VStack>

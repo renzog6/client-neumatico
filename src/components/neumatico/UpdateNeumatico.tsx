@@ -38,7 +38,6 @@ export default function Update({ neumatico, depositos, medidas, marcas }) {
       id: neumatico.id,
       name: neumatico.name,
       modelo: neumatico.modelo,
-      posicion: neumatico.posicion,
       uso: neumatico.uso,
       estado: neumatico.estado,
       info: neumatico.info,

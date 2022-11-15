@@ -10,8 +10,6 @@ export interface Neumatico {
   medida?: Medida
   marca?: Marca
   modelo: string
-  posicion: string
-  stock: number
   info: string
   uso?: Uso
   estado?: Estado

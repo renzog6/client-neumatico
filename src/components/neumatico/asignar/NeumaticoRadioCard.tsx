@@ -35,6 +35,7 @@ function RadioCard(props) {
         }}
         px={3}
         py={3}
+        m={2}
       >
         {props.children}
       </Box>

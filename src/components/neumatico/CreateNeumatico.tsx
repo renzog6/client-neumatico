@@ -48,8 +48,6 @@ export default function Create({ depositos, medidas, marcas }) {
     const neumatico: Neumatico = {
       id: 0,
       modelo: data.modelo,
-      posicion: data.posicion,
-      stock: 0,
       info: data.info,
       uso: data.uso,
       estado: data.estado,

@@ -1,18 +1,32 @@
 import { createContext, useContext, useState } from 'react'
 import { Camion, Acoplado4Ejes } from './EjesEquipos'
 
+import { instaladoService } from 'services/instalado.service'
+
 export const AsignarContext = createContext()
 
 export const AsignarProvider = ({ children }) => {
   const [asignarValue, setAsignarValue] = useState('')
   const [equipoSelect, setEquipoSelect] = useState('')
   const [ejes, setEjes] = useState([])
-  const [neumatico, setNeumatico] = useState()
-  const [posicion, setPosicion] = useState()
+  const [neumatico, setNeumatico] = useState('')
+  const [posicion, setPosicion] = useState('')
+  const [instalados, setInstalados] = useState([])
+
+  const getInstalados = (equipoId) => {
+    const getInstalados = async () => {
+      const res = await instaladoService.getAllInstalados(equipoId)
+      console.log({ res })
+      setInstalados(res)
+    }
+    getInstalados()
+  }
 
   const setEquipo = (data) => {
     const equipo = JSON.parse(data)
+
     setEquipoSelect(equipo)
+    getInstalados(equipo.id)
 
     switch (equipo.tipo) {
       case 'Camion':
@@ -40,6 +54,8 @@ export const AsignarProvider = ({ children }) => {
     setNeumatico,
     posicion,
     setPosicion,
+    instalados,
+    setInstalados,
   }
 
   return (

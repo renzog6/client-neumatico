@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 
-import ListNeumaticosToAsignar from 'components/neumatico/asignar/ListNeumaticosToAsignar'
 import ListEquipos from 'components/neumatico/asignar/ListEquipos'
 import NeumaticoEjes from 'components/neumatico/asignar/NeumaticoEjes'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
@@ -20,21 +19,21 @@ export default function AsignacionNeumatico() {
             h="90vh"
             templateRows="repeat(2, 1fr)"
             templateColumns="repeat(5, 1fr)"
-            gap={4}
+            gap={5}
             alignContent="center"
           >
             <GridItem w="350px" rowSpan={2} colSpan={1} p={2} bg="gray.700">
               <ListEquipos />
             </GridItem>
-            <GridItem w="100%" minW="350px" h="60vh" colSpan={2} bg="gray.600">
+            <GridItem w="350px" h="550px" colSpan={2} bg="gray.500">
               <NeumaticoEjes />
             </GridItem>
-            <GridItem w="100%" minW="350px" colSpan={2} bg="gray.500">
+            <GridItem w="100%" minW="350px" colSpan={2} bg="gray.700">
               <NeumaticoDetalle />
             </GridItem>
-            <GridItem w="100%" colSpan={4} p={1}>
+            {/* <GridItem w="100%" colSpan={4} p={1}>
               <ListNeumaticosToAsignar />
-            </GridItem>
+            </GridItem> */}
           </Grid>
         </Box>
       </AsignarProvider>
